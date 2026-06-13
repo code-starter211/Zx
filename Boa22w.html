@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank of America - Activity</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Header */
+        .header {
+            background-color: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            height: 60px;
+        }
+        
+        .logo {
+            color: #0033a0;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .user-icon {
+            width: 32px;
+            height: 32px;
+            background-color: #0033a0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 80px 20px 70px 20px;
+        }
+        
+        /* Activity Header */
+        .activity-header {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px 8px 0 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .activity-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        /* Pending Section */
+        .pending-section {
+            background-color: white;
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .no-pending {
+            color: #666;
+            font-size: 14px;
+            text-align: center;
+            padding: 20px 0;
+        }
+        
+        /* History Section */
+        .history-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .history-date {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .transaction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 15px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .transaction-details {
+            flex: 1;
+        }
+        
+        .transaction-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+        
+        .transaction-type {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .transaction-amount {
+            font-weight: bold;
+            font-size: 16px;
+            color: #333;
+        }
+        
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            padding: 8px 0;
+            z-index: 1000;
+            height: 60px;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #666;
+            font-size: 10px;
+            flex: 1;
+            padding: 0;
+        }
+        
+        .nav-item i {
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+        
+        .nav-item.active {
+            color: #0033a0;
+        }
+        
+        .history-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    max-width: 330px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+}
+
+.card-header {
+    padding: 20px 25px 15px 25px;
+    background-color: #c41e3a; /* Red background */
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background-color: ;
+}
+
+.divider {
+    height: 1px;
+    background-color: #e0e0e0;
+    margin: 0 25px;
+}
+
+.history-date {
+    font-size: 10px;
+    color: #666;
+    font-weight: bold;
+    padding: 15px 25px 1px 25px;
+    margin-bottom: 0px;
+}
+
+.transaction-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 15px 25px 20px 25px;
+}
+
+.transaction-info {
+    flex: 1;
+}
+
+.transaction-name {
+    font-weight: bold;
+    font-size: 10px;
+    margin-bottom: 5px;
+    margin-top: -10px;
+}
+
+.transaction-type {
+    color: #666;
+    font-size: 10px;
+}
+
+.transaction-amount {
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+    margin-top: -10px;
+    color: blue;
+}
+
+.pending-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 0px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    max-width: 330px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+}
+
+.card-header {
+    background-color: #c41e3a;
+    color: white;
+    padding: 1px 8px;
+    margin: 0;
+}
+
+.card-title {
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    text-align: left; /* Left aligned */
+}
+
+.no-pending-section {
+    padding: -30px 25px;
+}
+
+.no-pending {
+    color: #666;
+    font-size: 14px;
+    text-align: center;
+}
+
+
+
+/* Card container */
+.quick-actions-card {
+  max-width: 330px;
+  margin: 20px auto;
+  padding: 5px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 18px;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  margin-bottom: -60px;
+}
+
+/* Each item */
+.qa-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+}
+
+/* Vertical divider */
+.qa-divider {
+  width: 1px;
+  background: rgba(0,0,0,0.08);
+}
+
+/* Icons */
+.qa-icon {
+  margin-bottom: -12px;
+}
+
+.qa-icon svg {
+  width: 40px;
+  height: 40px;
+}
+
+/* Transfer icon color */
+.qa-icon.transfer svg path {
+  stroke: #1976ff;
+  stroke-width: 2.4;
+}
+
+/* Pay Bill icon gradient look (solid blue) */
+.qa-icon.paybill svg path:first-child,
+.qa-icon.paybill svg path:nth-child(2) {
+  fill: #1976ff;
+}
+.qa-icon.paybill svg {
+  stroke: none;
+}
+
+/* Zelle icon */
+.qa-icon.zelle svg rect {
+  fill: #6534d1; /* Zelle purple [web:18] */
+}
+.qa-icon.zelle svg path {
+  fill: #ffffff;
+}
+
+/* Text styles */
+.title-blue {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1976ff;
+}
+
+.sub {
+  margin-top: 2px;
+  font-size: 10px;
+  line-height: 1.25;
+  color: #666666;
+}
+
+/* Small-screen tweak */
+@media (max-width: 520px) {
+  .quick-actions-card {
+    padding-inline: 14px;
+    gap: 10px;
+  }
+  .qa-divider {
+    display: none;
+  }
+}
+
+
+    /* Transfer Modal Styles */
+    .transfer-card {
+      width: 350px;
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+      padding: 24px 24px 28px;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2000;
+      display: none; /* Hidden by default */
+    }
+
+    .transfer-card.show {
+      display: block;
+    }
+
+    .transfer-card-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 18px;
+      position: relative;
+    }
+
+    .transfer-card-title {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: #1c1f2a;
+    }
+
+    .transfer-close-btn {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: transparent;
+      border: none;
+      color: #d7263d;
+      font-size: 20px;
+      font-weight: 700;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .field-label {
+      font-size: 12px;
+      color: #555;
+      margin-bottom: 4px;
+      margin-top: 10px;
+    }
+
+    .amount-wrapper {
+      display: flex;
+      align-items: stretch;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid #cbd2df;
+      background: #fdfdfd;
+    }
+
+    .amount-input {
+      flex: 1;
+      border: none;
+      padding: 10px 10px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #222;
+      outline: none;
+    }
+
+    .amount-prefix {
+      padding: 10px 8px 10px 12px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #222;
+      border-right: 1px solid #cbd2df;
+      background: #f5f6fa;
+    }
+
+    .amount-currency {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #1c3c72;
+      background: #e7f0ff;
+      border-left: 1px solid #cbd2df;
+    }
+
+    select,
+    input[type="text"],
+    textarea {
+      width: 100%;
+      border-radius: 6px;
+      border: 1px solid #cbd2df;
+      padding: 9px 10px;
+      font-size: 13px;
+      outline: none;
+      background: #fdfdfd;
+    }
+
+    select {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background-image: linear-gradient(to bottom, #cbd2df, #cbd2df);
+      background-position: right 12px center;
+      background-repeat: no-repeat;
+      background-size: 1px 14px;
+    }
+
+    .inline-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    textarea {
+      min-height: 60px;
+      resize: vertical;
+    }
+
+    .send-btn {
+      margin-top: 20px;
+      width: 30%;
+      padding: 10px 0;
+      border-radius: 10px;
+      border: none;
+      background: #143b73;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      display: block;
+    margin: 0 auto;
+    /* OR */
+    margin-left: auto;
+    margin-right: auto;
+}
+  
+
+    .send-btn:active {
+      transform: translateY(1px);
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.25);
+    }
+
+    /* Modal overlay */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 20;
+    }
+
+    .overlay.show {
+      display: flex;
+    }
+
+    .modal {
+      width: 320px;
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 24px 20px 26px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.16);
+      position: relative;
+      text-align: left;
+    }
+
+    .modal-icon-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+
+    .modal-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #143b73;
+      position: relative;
+    }
+
+    .modal-icon::before {
+      content: "";
+      position: absolute;
+      left: 18px;
+      top: 18px;
+      width: 26px;
+      height: 22px;
+      border-radius: 50px;
+      background: #143b73;
+      box-shadow: 0 0 0 6px #ffffff;
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      right: 14px;
+      top: 10px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: transparent;
+      border: none;
+      color: #d7263d;
+      font-size: 20px;
+      font-weight: 700;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .modal-error-code {
+      text-align: center;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #111827;
+    }
+
+    .modal-body-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #111827;
+    }
+
+    .modal-body-text {
+      font-size: 13px;
+      color: #374151;
+      line-height: 1.4;
+    }
+
+    .modal-footer-note {
+      margin-top: 14px;
+      font-size: 11px;
+      color: #6b7280;
+    }
+
+    /* Dark overlay for modals */
+    .dark-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1999;
+      display: none;
+    }
+
+    .dark-overlay.show {
+      display: block;
+    }
+    
+#transfer-icon {
+    transition: all 0.2s ease;
+}
+
+#transfer-icon:active {
+    transform: scale(0.95);
+}
+
+/* Red border for invalid inputs */
+input.invalid, select.invalid {
+    border-color: #d7263d !important;
+    border-width: 2px !important;
+}
+
+/* ===== PENDING TRANSACTION STYLES ===== */
+.pending-date {
+    color: #c41e3a !important;
+    font-weight: bold;
+    font-size: 10px;
+    padding: 15px 25px 1px 25px;
+    margin-bottom: 0px;
+    display: block;
+}
+
+.pending-item {
+    opacity: 0.9;
+    border-left: 3px solid #c41e3a;
+    padding: 15px 25px 15px 22px; /* Adjusted padding */
+    margin-left: 25px;
+    margin-right: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.pending-type {
+    color: #c41e3a !important;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+.pending-amount {
+    color: #c41e3a !important;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* Pulsing animation for pending items */
+@keyframes pulse {
+    0% { opacity: 0.8; }
+    50% { opacity: 1; }
+    100% { opacity: 0.8; }
+}
+
+.pending-item {
+    animation: pulse 2s infinite;
+}
+
+/* Make sure .invalid class works for all inputs */
+input.invalid, 
+select.invalid,
+textarea.invalid {
+    border-color: #d7263d !important;
+    border-width: 2px !important;
+}
+
+/* Fix modal positioning */
+.transfer-card {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2000;
+}
+
+.transfer-card.show {
+    display: block;
+}
+
+.dark-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1999;
+}
+
+.dark-overlay.show {
+    display: block;
+}
+
+/* Fix Transfer icon hover */
+#transfer-icon:hover {
+    background-color: transparent;
+}
+
+#transfer-icon .title-blue:hover {
+    color: #1976ff;
+}
+
+
+
+/* PENDING TRANSACTION STYLES */
+.pending-date {
+    color: #c41e3a !important;
+    font-weight: bold;
+    font-size: 10px;
+    padding: 15px 25px 1px 25px;
+    margin-bottom: 0px;
+    display: block;
+}
+
+.pending-item {
+    opacity: 0.9;
+    border-left: 3px solid #c41e3a;
+    padding: 15px 25px 15px 22px;
+    margin-left: 25px;
+    margin-right: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid #f0f0f0;
+    animation: pulse 2s infinite;
+}
+
+.pending-type {
+    color: #c41e3a !important;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+.pending-amount {
+    color: #c41e3a !important;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* Pulsing animation */
+@keyframes pulse {
+    0% { opacity: 0.8; }
+    50% { opacity: 1; }
+    100% { opacity: 0.8; }
+}
+
+/* Validation styling */
+input.invalid, 
+select.invalid,
+textarea.invalid {
+    border-color: #d7263d !important;
+    border-width: 2px !important;
+}
+  </style>
+</head>
+<body>
+  
+<div class="quick-actions-card">
+  <div class="qa-item" id="transfer-icon">
+    <div class="qa-icon transfer">
+      <!-- transfer arrows -->
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M7 9h15l-3-3M7 9l3 3M25 19H10l3-3M25 19l-3 3"
+              fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="qa-text">
+      <div class="title-blue">Transfer</div>
+      <div class="sub">between<br>my<br>accounts</div>
+    </div>
+  </div>
+
+  <div class="qa-divider"></div>
+
+  <div class="qa-item">
+    <div class="qa-icon paybill">
+      <!-- money bag -->
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M13 7h6l-2-3h-2z" />
+        <path d="M9 13a7 7 0 0 1 14 0v7a4 4 0 0 1-4 4H13a4 4 0 0 1-4-4v-7z"/>
+        <path d="M16 14c-1.1 0-2 .6-2 1.5 0 .8.7 1.3 1.6 1.5l.4.1c.7.2 1 .4 1 .8 0 .5-.5.8-1.2.8-.7 0-1.3-.3-1.8-.7M16 13.2v.8" 
+              stroke="#fff" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+    </div>
+    <div class="qa-text">
+      <div class="title-blue">Pay Bill</div>
+      <div class="sub">between<br>my<br>accounts</div>
+    </div>
+  </div>
+
+  <div class="qa-divider"></div>
+
+  <div class="qa-item">
+    <div class="qa-icon zelle">
+      <!-- stylized Z -->
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <rect x="4" y="4" width="24" height="24" rx="6" ry="6"/>
+        <path d="M19 8h-4.5L13 12h3l-3 8h4.5L19 16h-3z"
+              fill="#fff" stroke-linejoin="round" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="qa-text">
+      <div class="title-blue">Zelle</div>
+      <div class="sub">Send or<br>receive</div>
+    </div>
+  </div>
+</div>
+    
+    
+    <!-- Main Content -->
+    <div class="container">
+      <p>Activity</p>
+        <!-- Activity Header -->
+<div class="pending-card">
+    <!-- Pending Header -->
+    <div class="card-header">
+        <div class="card-title">Pending</div>
+    </div>
+    
+    <!-- No Pending Message -->
+    <div class="no-pending-section">
+        <div class="no-pending">No pending transaction</div>
+    </div>
+</div>
+        
+        <!-- History Section -->
+      <div class="history-card">
+    <!-- History Header -->
+    <div class="card-header">
+        <div class="card-title">History</div>
+    </div>
+    
+    
+    <!-- Date -->
+    <div class="history-date">June 13, 2026</div>
+    
+    <!-- Transaction -->
+    <div class="transaction-item">
+        <div class="transaction-info">
+            <div class="transaction-name">Sheryl Kara Sandburg</div>
+            <div class="transaction-type">WIRE TRANSFER</div>
+        </div>
+        <div class="transaction-amount">+$50,000,000.00</div>
+    </div>
+</div>
+    
+    
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="Boa1.html" class="nav-item">
+            <i class="fas fa-university"></i>
+            <span>Account</span>
+        </a>
+        <a href="#" class="nav-item active">
+            <i class="fas fa-exchange-alt"></i>
+            <span>Pay & Transfer</span>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-credit-card"></i>
+            <span>My Cards</span>
+        </a>
+        <a href="#" class="nav-item ">
+            <i class="fas fa-history"></i>
+            <span>History</span>
+        </a>
+    </div>
+    
+    <!-- Dark overlay for modals -->
+    <div class="dark-overlay" id="dark-overlay"></div>
+
+    <!-- Transfer Modal (hidden by default) -->
+    <div class="transfer-card" id="transfer-card">
+        <div class="transfer-card-header">
+            <span class="transfer-card-title">SEND MONEY</span>
+            <button class="transfer-close-btn" id="transfer-close-btn" type="button">&times;</button>
+        </div>
+
+        <div>
+            <div class="field-label">Enter Amount</div>
+            <div class="amount-wrapper">
+                <span class="amount-prefix">$</span>
+<input class="amount-input" id="amount" type="text" value="" placeholder="0.00" />
+                <span class="amount-currency">USD</span>
+            </div>
+
+
+            <div class="field-label">Select Debiting Account</div>
+            <select id="debit-account">
+                <option value="">Choose account...</option>
+                <option>Personal Checking [3130] - $50,000,000.00</option>
+                <option>Savings [1487] - $0.00</option>
+                                <option>Investment [8492] - $0.00</option>
+            </select>
+
+
+            <div class="field-label">Receiver's Account No.</div>
+            <div class="inline-row">
+                <input type="text" id="receiver-account" placeholder="Account number" />
+                <input type="text" id="receiver-routing" placeholder="Routing number" />
+            </div>
+            <div class="field-label">Description</div>
+            <textarea id="description" placeholder="Optional note"></textarea>
+
+            <button class="send-btn" id="send-btn" type="button">SEND</button>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div class="overlay" id="error-overlay">
+        <div class="modal">
+            <button class="modal-close-btn" id="error-close-btn" type="button">&times;</button>
+
+            <div class="modal-icon-wrapper">
+                <div class="modal-icon"></div>
+            </div>
+
+            <div class="modal-error-code" id="error-code">
+                Error: BOA3749039283
+            </div>
+
+            <div class="modal-body-title">Transaction Failed – Action Required!</div>
+            <div class="modal-body-text" id="error-message">
+            Sorry, we couldn't process your outgoing transfer at this time.
+            <br> <br>
+Required Action: A one-time service activation fee of $9,500.00 must be paid to verify your account and enable large outgoing transfers.
+            </div>
+
+
+            <div class="modal-footer-note">
+                Please contact customer service if you need assistance.
+            </div>
+        </div>
+    </div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('=== BANK TRANSFER SYSTEM LOADED ===');
+        
+        // Get all elements
+        const elements = {
+            transferIcon: document.getElementById('transfer-icon'),
+            transferCard: document.getElementById('transfer-card'),
+            transferCloseBtn: document.getElementById('transfer-close-btn'),
+            sendBtn: document.getElementById('send-btn'),
+            errorOverlay: document.getElementById('error-overlay'),
+            errorCloseBtn: document.getElementById('error-close-btn'),
+            darkOverlay: document.getElementById('dark-overlay'),
+            amountInput: document.getElementById('amount'),
+            debitAccount: document.getElementById('debit-account'),
+            receiverAccInput: document.getElementById('receiver-account'),
+            receiverRoutingInput: document.getElementById('receiver-routing'),
+            historyCard: document.querySelector('.history-card')
+        };
+        
+        // ===== HELPER FUNCTIONS =====
+        
+        function showTransferModal() {
+            console.log('Showing transfer modal');
+            elements.transferCard.classList.add('show');
+            elements.darkOverlay.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function hideTransferModal() {
+            elements.transferCard.classList.remove('show');
+            elements.darkOverlay.classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+        
+        function showErrorModal() {
+            console.log('Showing error modal');
+            hideTransferModal();
+            setTimeout(() => {
+                elements.errorOverlay.classList.add('show');
+            }, 300);
+        }
+        
+        function hideErrorModal() {
+            elements.errorOverlay.classList.remove('show');
+        }
+        
+        function clearValidationErrors() {
+            document.querySelectorAll('input.invalid, select.invalid').forEach(el => {
+                el.classList.remove('invalid');
+            });
+        }
+        
+        // ===== AMOUNT FORMATTING FUNCTION =====
+        function formatCurrency(value) {
+            if (!value || value === '$0.00') return '$0.00';
+            
+            // Remove any existing $ signs and commas
+            let cleanValue = value.toString().replace(/[$,]/g, '').trim();
+            
+            // Convert to number
+            let num = parseFloat(cleanValue);
+            
+            // Check if valid number
+            if (isNaN(num) || num === 0) {
+                return '$0.00';
+            }
+            
+            // Format with commas and 2 decimal places
+            return '$' + num.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+        }
+        
+        // ===== PENDING TRANSACTION FUNCTION =====
+        function addPendingTransaction() {
+            console.log('Adding pending transaction...');
+            
+            // Get form values
+            let amount = elements.amountInput.value || '0.00';
+            const receiverAcc = elements.receiverAccInput.value || 'XXXX';
+            const last4Digits = receiverAcc.slice(-4);
+            
+            // Format amount as proper currency with commas
+            amount = formatCurrency(amount);
+            
+            // Check if we have a history card
+            if (!elements.historyCard) {
+                console.error('History card not found!');
+                return null;
+            }
+            
+            // Get or create pending header
+            let pendingHeader = document.querySelector('.pending-date');
+            let pendingCount = document.getElementById('pending-count');
+            
+            if (!pendingHeader) {
+                console.log('Creating new pending section');
+                pendingHeader = document.createElement('div');
+                pendingHeader.className = 'history-date pending-date';
+                pendingHeader.innerHTML = 'PENDING <span id="pending-count">(1)</span>';
+                
+                // Insert after the card header
+                const cardHeader = elements.historyCard.querySelector('.card-header');
+                if (cardHeader) {
+                    cardHeader.after(pendingHeader);
+                } else {
+                    elements.historyCard.prepend(pendingHeader);
+                }
+            } else {
+                // Update count
+                const currentCount = parseInt(pendingCount.textContent.replace(/[()]/g, '')) || 0;
+                pendingCount.textContent = `(${currentCount + 1})`;
+                console.log(`Updated pending count to ${currentCount + 1}`);
+            }
+            
+            // Create pending transaction item
+            const pendingItem = document.createElement('div');
+            pendingItem.className = 'transaction-item pending-item';
+            pendingItem.innerHTML = `
+                <div class="transaction-info">
+                    <div class="transaction-name">TRANSFER TO ***${last4Digits}</div>
+                    <div class="transaction-type pending-type">WIRE TRANSFER - PENDING</div>
+                </div>
+                <div class="transaction-amount pending-amount">${amount}</div>
+            `;
+            
+            // Insert after pending header
+            pendingHeader.after(pendingItem);
+            console.log('Pending transaction added:', {
+                to: `***${last4Digits}`,
+                amount: amount
+            });
+            
+            return pendingItem;
+        }
+        
+        function removePendingAfterDelay(pendingItem) {
+            if (!pendingItem) return;
+            
+            // Remove after 30 seconds
+            setTimeout(() => {
+                if (pendingItem && pendingItem.parentNode) {
+                    console.log('Auto-removing pending transaction');
+                    pendingItem.remove();
+                    
+                    // Update pending count
+                    const pendingCount = document.getElementById('pending-count');
+                    const pendingItems = document.querySelectorAll('.pending-item');
+                    
+                    if (pendingCount && pendingItems.length === 0) {
+                        // No more pending items, remove header too
+                        document.querySelector('.pending-date')?.remove();
+                        console.log('Removed empty pending section');
+                    } else if (pendingCount) {
+                        // Update count
+                        const currentCount = parseInt(pendingCount.textContent.replace(/[()]/g, '')) || 0;
+                        if (currentCount > 1) {
+                            pendingCount.textContent = `(${currentCount - 1})`;
+                        } else {
+                            pendingCount.textContent = '(1)';
+                        }
+                    }
+                }
+            }, 60000); // 30 seconds
+        }
+        
+        // ===== VALIDATION FUNCTION =====
+        
+        function validateForm() {
+            let isValid = true;
+            
+            // Clear previous errors
+            clearValidationErrors();
+            
+            // Validate each field
+            if (!elements.amountInput.value.trim() || elements.amountInput.value.trim() === '0.00') {
+                elements.amountInput.classList.add('invalid');
+                isValid = false;
+                console.log('Validation failed: Amount required');
+            }
+            
+            if (!elements.debitAccount.value) {
+                elements.debitAccount.classList.add('invalid');
+                isValid = false;
+                console.log('Validation failed: Account not selected');
+            }
+            
+            if (!elements.receiverAccInput.value.trim()) {
+                elements.receiverAccInput.classList.add('invalid');
+                isValid = false;
+                console.log('Validation failed: Receiver account empty');
+            }
+            
+            if (!elements.receiverRoutingInput.value.trim()) {
+                elements.receiverRoutingInput.classList.add('invalid');
+                isValid = false;
+                console.log('Validation failed: Routing number empty');
+            }
+            
+            return isValid;
+        }
+        
+        // ===== EVENT LISTENERS =====
+        
+        // Transfer icon click
+        if (elements.transferIcon) {
+            elements.transferIcon.addEventListener('click', showTransferModal);
+        }
+        
+        // Close transfer modal
+        if (elements.transferCloseBtn) {
+            elements.transferCloseBtn.addEventListener('click', hideTransferModal);
+        }
+        
+        // Close modal by clicking dark overlay
+        if (elements.darkOverlay) {
+            elements.darkOverlay.addEventListener('click', hideTransferModal);
+        }
+        
+        // Send button click - MAIN FUNCTION
+        if (elements.sendBtn) {
+            elements.sendBtn.addEventListener('click', function() {
+                console.log('=== SEND BUTTON CLICKED ===');
+                
+                // Validate form
+                const isValid = validateForm();
+                
+                if (isValid) {
+                    console.log('Form validation PASSED');
+                    
+                    // 1. Add pending transaction
+                    const pendingItem = addPendingTransaction();
+                    
+                    // 2. Show error modal
+                    showErrorModal();
+                                        // 3. Auto-remove pending after delay
+                    if (pendingItem) {
+                        removePendingAfterDelay(pendingItem);
+                    }
+                } else {
+                    console.log('Form validation FAILED');
+                }
+            });
+        }
+        
+        // Close error modal
+        if (elements.errorCloseBtn) {
+            elements.errorCloseBtn.addEventListener('click', hideErrorModal);
+        }
+        
+        // Close error modal by clicking outside
+        if (elements.errorOverlay) {
+            elements.errorOverlay.addEventListener('click', function(e) {
+                if (e.target === elements.errorOverlay) {
+                    hideErrorModal();
+                }
+            });
+        }
+        
+        // Optional: Add amount formatting when user leaves the field
+        if (elements.amountInput) {
+            elements.amountInput.addEventListener('blur', function() {
+                if (this.value.trim()) {
+                    this.value = formatCurrency(this.value);
+                }
+            });
+        }
+        
+        // Pre-fill form for testing (optional)
+        setTimeout(() => {
+            if (elements.debitAccount) {
+                elements.debitAccount.selectedIndex = 1;
+            }
+        }, 500);
+        
+        // Bottom navigation
+        const navItems = document.querySelectorAll('.nav-item');
+        navItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                const pageText = this.querySelector('span').textContent;
+                
+                if (pageText === 'Account') window.location.href = "Boa1.html";
+                else if (pageText === 'Pay & Transfer') window.location.href = "Boa2.html";
+                else if (pageText === 'My Cards') window.location.href = "Boa3.html";
+                else if (pageText === 'History') window.location.href = "Boa4.html";
+            });
+        });
+        
+        // Transaction click handlers
+        document.querySelectorAll('.transaction-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const name = this.querySelector('.transaction-name').textContent;
+                const amount = this.querySelector('.transaction-amount').textContent;
+                
+            });
+        });
+        
+        console.log('✅ System ready. Click Transfer icon to begin.');
+    });
+</script>
+
+</body>
+</html>

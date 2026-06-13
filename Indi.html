@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank of America - Log In</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #0033a0;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        
+        .login-form {
+            background-color: white;
+            border-radius: 4px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 10px;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .checkbox-group input {
+            margin-right: 8px;
+        }
+        
+        .login-btn {
+            background-color: #0033a0;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 12px;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        
+        .login-btn:hover {
+            background-color: #002a80;
+        }
+        
+        .forgot-link {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 12px;
+        }
+        
+        .forgot-link a {
+            color: #0033a0;
+            text-decoration: none;
+        }
+        
+        .forgot-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .divider {
+            height: 1px;
+            background-color: #e0e0e0;
+            margin: 20px 0;
+        }
+        
+        .quick-links {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .quick-links a {
+            color: #0033a0;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .quick-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .options {
+            margin-bottom: 20px;
+        }
+        
+        .options a {
+            display: block;
+            color: #0033a0;
+            text-decoration: none;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .options a:hover {
+            text-decoration: underline;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .footer-links {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #0033a0;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .copyright {
+            margin-top: 10px;
+        }
+        
+        .balance-link {
+            font-weight: bold;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .login-form {
+                padding: 20px;
+            }
+        }
+        
+        .login-card, .options-card {
+    background-color: white;
+    border-radius: 4px;
+    padding: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; /* Space between cards */
+}
+
+/* Remove these styles from .login-form and apply to both cards */
+
+.card-grid {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+  text-align: center;
+  font-size: 14px;
+
+  /* Force perfect square */
+  aspect-ratio: 1 / 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+}
+
+.middle-link {
+  text-align: center;
+  font-size: 12px;
+  margin: 20px 0;
+}
+
+.middle-link a {
+  color: #3366cc;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.middle-link a:hover {
+  text-decoration: underline;
+}
+
+.login-card .form-group input {
+    width: 100%;
+    padding: 0px 0;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    background: transparent;
+    font-size: 16px;
+    outline: none;
+}
+
+.login-card .form-group input:focus {
+    border-bottom-color: #3366cc; /* or your theme color */
+}
+
+.footer {
+    background-color: #f2efea;
+    padding: 20px;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.login-btn {
+    width: 40%; /* Adjust percentage as needed */
+    border-radius: 20px; /* Adjust for more/less rounding */
+    background-color: #0033a0;
+    color: white;
+    border: none;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 0 auto 20px auto; /* Centers the button */
+    display: block;
+}
+
+/* Only the User ID and Password labels */
+.form-group label {
+    font-size: 12px;
+}
+
+/* Only the Save checkbox label */
+.checkbox-group label[for="save-id"] {
+    font-size: 14px;
+}
+
+.checkbox-group label {
+    font-size: 12px;
+    
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+.logo img {
+    max-width: 240px; /* Adjust to your preference */
+    height: auto;
+}
+
+
+
+.login-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    max-width: 340px; /* Add this */
+    margin-left: auto; /* Add this */
+    margin-right: auto; /* Add this */
+    overflow: hidden; /* Add this */
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.card i {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #0033a0; /* Bank of America blue */
+}
+
+.error-message {
+    color: #d90000;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 10px;
+    min-height: 20px;
+    font-weight: bold;
+}
+
+/* Optional: Add red border for error state */
+.input-error {
+    border-bottom: 2px solid #d90000 !important;
+}
+
+    </style>
+</head>
+<body>
+    <div class="logo">
+    <img src="Boa.png" alt="My Bank Logo">
+</div>
+       
+       <!-- Login Card -->
+<div class="login-card">
+    <div class="form-group">
+        <label>User ID</label>
+        <input type="text">
+    </div>
+    <div class="form-group">
+        <label>Password</label>
+        <input type="password">
+    </div>
+    <div class="checkbox-group">
+        <input type="checkbox">
+        <label>Save User ID / Password</label>
+    </div>
+    <button class="login-btn">LOG IN</button>
+    <div class="forgot-link">
+        <a href="#">Forgot ID/Password</a>
+    </div>
+</div>
+
+    
+    <div class="middle-link">
+  <a href="#">My Balance™</a> | <a href="#">Enroll</a>
+</div>
+    
+
+
+<div class="card-grid">
+  <div class="card">
+    <i class="fas fa-bell"></i>
+    Set up customer alert
+  </div>
+  <div class="card">
+    <i class="fas fa-piggy-bank"></i>
+    Open a savings account
+  </div>
+  <div class="card">
+    <i class="fas fa-hand-holding-usd"></i>
+    Apply for a loan
+  </div>
+  <div class="card">
+    <i class="fas fa-gift"></i>
+    View your rewards
+  </div>
+</div>
+</div> 
+
+    <div class="middle-link">
+  <a href="#">Location</a> | <a href="#">Contact us</a>
+</div>
+        <br>
+        
+        
+        <div class="footer">
+            <div class="footer-links">
+                <a href="#">Privacy</a> | <a href="#">Security</a> | <a href="#">Your Privacy Choices</a> 💬️
+            </div>
+            <div class="copyright">
+                Bank of America, N.A. Member FDIC. Equal Housing Lender 💬️<br>
+                © 2025 Bank of America Corporation.
+            </div>
+        </div>
+    </div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const loginBtn = document.querySelector('.login-btn');
+        const userIdInput = document.querySelector('input[type="text"]');
+        const passwordInput = document.querySelector('input[type="password"]');
+        
+        // Hardcoded credentials
+        const validUserId = "Harvey";
+        const validPassword = "Bank123";
+        
+        // Create error message elements
+        const errorContainer = document.createElement('div');
+        errorContainer.className = 'error-message';
+        errorContainer.style.cssText = 'color: #d90000; font-size: 12px; text-align: center; margin-top: 10px; min-height: 20px;';
+        loginBtn.parentNode.insertBefore(errorContainer, loginBtn.nextSibling);
+        
+        function showError(message) {
+            errorContainer.textContent = message;
+            errorContainer.style.display = 'block';
+        }
+        
+        function clearError() {
+            errorContainer.textContent = '';
+            errorContainer.style.display = 'none';
+        }
+        
+        loginBtn.addEventListener('click', function() {
+            const userId = userIdInput.value;
+            const password = passwordInput.value;
+            
+            clearError();
+            
+            // Check if fields are empty
+            if (!userId || !password) {
+                showError('Please enter both User ID and Password');
+                return;
+            }
+            
+            // Check if credentials are correct
+            if (userId !== validUserId || password !== validPassword) {
+                showError('Invalid User ID or Password. Please try again.');
+                return;
+            }
+            
+            // Show loading state
+            loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> LOGGING IN...';
+            loginBtn.disabled = true;
+            clearError();
+            
+            // Simulate loading delay (3 seconds)
+            setTimeout(function() {
+                // Redirect to dashboard
+                window.location.href = "Boa1.html";
+            }, 3000);
+        });
+        
+        // Clear error when user starts typing
+        userIdInput.addEventListener('input', clearError);
+        passwordInput.addEventListener('input', clearError);
+        
+        // Add some visual feedback for form inputs
+        const inputs = document.querySelectorAll('input[type="text"], input[type="password"]');
+        
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.style.borderColor = '#0033a0';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.style.borderColor = '#ccc';
+            });
+            
+            // Allow login with Enter key
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    loginBtn.click();
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
